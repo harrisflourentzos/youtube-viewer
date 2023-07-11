@@ -10,7 +10,8 @@ import {
 import HomePage from "./pages/Home";
 import Layout from "./pages/layout/Layout";
 import ErrorPage from "./pages/Error";
-import VideoPage from "./pages/Video";
+import VideoDetailsPage from "./pages/VideoDetails";
+import SearchResultsPage from "./pages/SearchResults";
 
 function App() {
   const themeState = useAppSelector((state) => state.theme.theme);
@@ -30,7 +31,8 @@ function App() {
           element: <Navigate to="home" replace />,
         },
         { path: "home", element: <HomePage /> },
-        { path: "video/:id", element: <VideoPage /> },
+        { path: "video/:id", element: <VideoDetailsPage /> },
+        { path: "search/:searchTerm", element: <SearchResultsPage /> },
       ],
     },
   ]);

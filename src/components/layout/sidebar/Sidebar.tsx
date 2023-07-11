@@ -42,6 +42,7 @@ const Sidebar = ({
 
   var items = sidebarItems.map((item) => (
     <SidebarItem
+      key={item.text}
       title={item.text}
       icon={item.icon}
       path={item.path}

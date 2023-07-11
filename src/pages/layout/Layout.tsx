@@ -23,7 +23,9 @@ const Layout = (props: Props) => {
           isSidebarOpen={isSidebarOpen}
           menuIconOnClick={setIsSidebarOpen}
         />
-        <Outlet />
+        <Box p={2}>
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );

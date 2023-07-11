@@ -19,6 +19,8 @@ import {
   useAppSelector as useSelector,
 } from "../../hooks/redux/redux-hooks";
 import { updateTheme } from "../../store/redux/themeSlice";
+import { useNavigate } from "react-router-dom";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
 
 type Props = {
   isSidebarOpen: boolean;
@@ -26,12 +28,35 @@ type Props = {
 };
 
 const Topbar = ({ isSidebarOpen, menuIconOnClick }: Props) => {
-  const dispatch = useDispatch();
   const themeState = useSelector((state) => state.theme.theme);
+  const [searchTerm, setSearchTerm] = useState<string>();
+
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   function toggleThemeHandler() {
     dispatch(updateTheme(themeState === "dark" ? "light" : "dark"));
+  }
+
+  function onSearchHandler() {
+    if (!searchTerm || searchTerm === "") return;
+
+    navigate(`/search/${searchTerm}`);
+  }
+
+  function inputChangedHandler(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    e.preventDefault();
+
+    setSearchTerm(e.target.value);
+  }
+
+  function haldleEnterKeyDown(
+    e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    if (e.key === "Enter") onSearchHandler();
   }
 
   return (
@@ -48,9 +73,18 @@ const Topbar = ({ isSidebarOpen, menuIconOnClick }: Props) => {
           <IconButton onClick={() => menuIconOnClick(!isSidebarOpen)}>
             <Menu />
           </IconButton>
-          <FlexBetween borderRadius="9px" gap="3rem" p="0.1rem 1.5rem">
-            <InputBase placeholder="Search..." />
-            <IconButton>
+          <FlexBetween
+            sx={{ backgroundColor: theme.palette.background.alt }}
+            borderRadius="9px"
+            gap="3rem"
+            p="0.1rem 1.5rem"
+          >
+            <InputBase
+              placeholder="Search..."
+              onChange={inputChangedHandler}
+              onKeyDown={haldleEnterKeyDown}
+            />
+            <IconButton onClick={onSearchHandler}>
               <Search />
             </IconButton>
           </FlexBetween>

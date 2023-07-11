@@ -1,14 +1,10 @@
 import { useReducer, useCallback } from "react";
 
-type State =
-  | {
-      status: "pending";
-    }
-  | {
-      data: any;
-      status: "completed";
-    }
-  | { error: any; status: "completed" };
+type State = {
+  status: "pending" | "completed";
+  data: any;
+  error: any;
+};
 
 type Action =
   | {
@@ -27,29 +23,33 @@ function httpReducer(state: State, action: Action): State {
   if (action.type === "SEND") {
     return {
       status: "pending",
+      data: null,
+      error: null,
     };
   }
 
   if (action.type === "SUCCESS") {
     return {
-      data: action.responseData,
       status: "completed",
+      data: action.responseData,
+      error: null,
     };
   }
 
   if (action.type === "ERROR") {
     return {
-      error: action.errorMessage,
       status: "completed",
+      data: null,
+      error: action.errorMessage,
     };
   }
 
   return state;
 }
 
-const INITIAL_STATE: State = { status: "pending" };
+const INITIAL_STATE: State = { status: "pending", data: null, error: null };
 
-function useHttp(requestFunction: (data: any) => any) {
+function useHttp(requestFunction: (data: any) => Promise<any>) {
   const [httpState, dispatch] = useReducer(httpReducer, INITIAL_STATE);
 
   const sendRequest = useCallback(
