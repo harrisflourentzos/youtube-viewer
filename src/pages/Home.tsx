@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useHttp from "../hooks/use-http";
 import { Search } from "../api/youtube-api";
 import { Box, Stack } from "@mui/material";
-import VideoStack from "../components/layout/VideoStack";
+import VideoStack from "../components/VideoStack";
 import Header from "../components/Header";
 
 type Props = {};

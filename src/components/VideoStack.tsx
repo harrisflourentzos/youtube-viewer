@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/material";
-import React from "react";
 import VideoCard from "./VideoCard";
+import { SearchResult } from "../model/api/search-types";
 
-type Props = { videos: any; direction: "row" | "column" };
+type Props = { videos: SearchResult[]; direction: "row" | "column" };
 
 const VideoStack = ({ videos, direction = "row" }: Props) => {
   return (
@@ -13,7 +13,7 @@ const VideoStack = ({ videos, direction = "row" }: Props) => {
       alignItems="start"
       gap={2}
     >
-      {videos.map((item: any, idx: any) => (
+      {videos.map((item, idx) => (
         <Box key={idx}>
           <VideoCard video={item} />
         </Box>

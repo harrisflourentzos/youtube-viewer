@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useHttp from "../hooks/use-http";
 import { Box, Stack, Typography } from "@mui/material";
-import VideoStack from "../components/layout/VideoStack";
+import VideoStack from "../components/VideoStack";
 import { Search } from "../api/youtube-api";
 import { useParams } from "react-router-dom";
 import { useTheme } from "@mui/material";

@@ -7,8 +7,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { SearchResult } from "../model/api/search-types";
 
-type Props = { video: { id: { videoId: string }; snippet: any } };
+type Props = { video: SearchResult };
 
 const VideoCard = ({
   video: {

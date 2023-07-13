@@ -1,7 +1,7 @@
 import { CheckCircle } from "@mui/icons-material";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import VideoStack from "../components/layout/VideoStack";
+import VideoStack from "../components/VideoStack";
 import ReactPlayer from "react-player";
 import { GetVideoDetails, GetRelatedVideosById } from "../api/youtube-api";
 import useHttp from "../hooks/use-http";

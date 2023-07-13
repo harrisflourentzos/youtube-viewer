@@ -1,8 +1,8 @@
 import { useReducer, useCallback } from "react";
 
-type State = {
+type State<T> = {
   status: "pending" | "completed";
-  data: any;
+  data: T | null;
   error: any;
 };
 
@@ -19,7 +19,7 @@ type Action =
       errorMessage: any;
     };
 
-function httpReducer(state: State, action: Action): State {
+function httpReducer<T>(state: State<T>, action: Action): State<T> {
   if (action.type === "SEND") {
     return {
       status: "pending",
@@ -47,10 +47,12 @@ function httpReducer(state: State, action: Action): State {
   return state;
 }
 
-const INITIAL_STATE: State = { status: "pending", data: null, error: null };
-
-function useHttp(requestFunction: (data: any) => Promise<any>) {
-  const [httpState, dispatch] = useReducer(httpReducer, INITIAL_STATE);
+function useHttp<T>(requestFunction: (requestData: any) => Promise<T>) {
+  const [httpState, dispatch] = useReducer(httpReducer<T>, {
+    status: "pending",
+    data: null,
+    error: null,
+  });
 
   const sendRequest = useCallback(
     async function (requestData: any) {
