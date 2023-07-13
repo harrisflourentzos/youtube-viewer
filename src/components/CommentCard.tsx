@@ -1,7 +1,6 @@
 import { CommentThread } from "../model/api/comment-types";
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
   CardHeader,
