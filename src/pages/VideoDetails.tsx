@@ -3,9 +3,14 @@ import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import VideoStack from "../components/VideoStack";
 import ReactPlayer from "react-player";
-import { GetVideoDetails, GetRelatedVideosById } from "../api/youtube-api";
+import {
+  GetVideoDetails,
+  GetRelatedVideosById,
+  GetVideoCommentThreadsById,
+} from "../api/youtube-api";
 import useHttp from "../hooks/use-http";
 import { useEffect } from "react";
+import CommentStack from "../components/CommentStack";
 
 type Props = {};
 
@@ -14,25 +19,29 @@ const VideoDetailsPage = (props: Props) => {
   const { data: video, sendRequest: getVideo } = useHttp(GetVideoDetails);
   const { data: relatedVideos, sendRequest: getRelatedVideos } =
     useHttp(GetRelatedVideosById);
+  const { data: commentThreads, sendRequest: getCommentThreads } = useHttp(
+    GetVideoCommentThreadsById
+  );
   const theme = useTheme();
 
   useEffect(() => {
     async function fetchData() {
       await getVideo(id);
       await getRelatedVideos(id);
+      await getCommentThreads(id);
     }
 
     fetchData();
-  }, [getVideo, getRelatedVideos, id]);
+  }, [getVideo, getRelatedVideos, getCommentThreads, id]);
 
   return (
     <Box minHeight="95vh">
-      {!(video && relatedVideos) && (
+      {!(video && relatedVideos && commentThreads) && (
         <Typography variant="h4" color={theme.palette.neutral[100]}>
           Loading...
         </Typography>
       )}
-      {video && relatedVideos && (
+      {video && relatedVideos && commentThreads && (
         <Stack direction={{ xs: "column", md: "row" }}>
           <Box flex={1}>
             <Box
@@ -40,6 +49,7 @@ const VideoDetailsPage = (props: Props) => {
                 width: "100%",
                 top: "86px",
                 backgroundColor: theme.palette.background.alt,
+                mb: 5,
               }}
             >
               <ReactPlayer
@@ -93,6 +103,7 @@ const VideoDetailsPage = (props: Props) => {
                 </Stack>
               </Stack>
             </Box>
+            <CommentStack commentThreads={commentThreads} />
           </Box>
           <Box px={2} justifyContent="center" alignItems="center">
             <VideoStack videos={relatedVideos} direction="column" />
