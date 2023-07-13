@@ -7,7 +7,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import HomePage from "./pages/Home";
+import FeedPage from "./pages/Feed";
 import Layout from "./pages/layout/Layout";
 import ErrorPage from "./pages/Error";
 import VideoDetailsPage from "./pages/VideoDetails";
@@ -30,9 +30,34 @@ function App() {
           path: "",
           element: <Navigate to="home" replace />,
         },
-        { path: "home", element: <HomePage /> },
+        {
+          path: "home",
+          element: (
+            <FeedPage
+              title="Home"
+              subtitle="Welcome to your personalized feed"
+              searchTerm="trending"
+            />
+          ),
+        },
         { path: "video/:id", element: <VideoDetailsPage /> },
         { path: "search/:searchTerm", element: <SearchResultsPage /> },
+        {
+          path: "travel",
+          element: <FeedPage title="Travel" searchTerm="travel" />,
+        },
+        {
+          path: "music",
+          element: <FeedPage title="Music" searchTerm="music" />,
+        },
+        {
+          path: "anime",
+          element: <FeedPage title="Anime" searchTerm="anime" />,
+        },
+        {
+          path: "movies",
+          element: <FeedPage title="Movies" searchTerm="movies" />,
+        },
       ],
     },
   ]);

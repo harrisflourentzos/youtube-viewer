@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Drawer,
   IconButton,
   List,
@@ -40,7 +41,18 @@ const Sidebar = ({
     setActive(path);
   }
 
-  var items = sidebarItems.map((item) => (
+  var sidebarItems_main = sidebarItems.main.map((item) => (
+    <SidebarItem
+      key={item.text}
+      title={item.text}
+      icon={item.icon}
+      path={item.path}
+      isActive={active === item.text.toLowerCase()}
+      onClick={onSidebarItemClickHandler}
+    />
+  ));
+
+  var sidebarItems_explore = sidebarItems.explore.map((item) => (
     <SidebarItem
       key={item.text}
       title={item.text}
@@ -86,7 +98,17 @@ const Sidebar = ({
                 )}
               </FlexBetween>
             </Box>
-            <List>{items}</List>
+            <List>{sidebarItems_main}</List>
+            <Divider sx={{ my: 1 }} />
+            <Typography
+              ml={5}
+              mt={2}
+              variant="h4"
+              color={theme.palette.secondary[100]}
+            >
+              Explore
+            </Typography>
+            <List>{sidebarItems_explore}</List>
           </Box>
         </Drawer>
       )}

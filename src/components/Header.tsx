@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 };
 
 const Header = ({ title, subtitle }: Props) => {
@@ -18,9 +18,11 @@ const Header = ({ title, subtitle }: Props) => {
       >
         {title}
       </Typography>
-      <Typography variant="h5" color={theme.palette.secondary[300]}>
-        {subtitle}
-      </Typography>
+      {subtitle && (
+        <Typography variant="h5" color={theme.palette.secondary[300]}>
+          {subtitle}
+        </Typography>
+      )}
     </Box>
   );
 };

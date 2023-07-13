@@ -5,9 +5,9 @@ import { Box, Stack } from "@mui/material";
 import VideoStack from "../components/VideoStack";
 import Header from "../components/Header";
 
-type Props = {};
+type Props = { searchTerm: string; title: string; subtitle?: string };
 
-const HomePage = (props: Props) => {
+const FeedPage = ({ searchTerm, title, subtitle }: Props) => {
   const { data, sendRequest } = useHttp(Search);
 
   useEffect(() => {
@@ -15,14 +15,14 @@ const HomePage = (props: Props) => {
       await sendRequest(searchTerm);
     }
 
-    GetVideos("anime");
-  }, [sendRequest]);
+    GetVideos(searchTerm);
+  }, [sendRequest, searchTerm]);
 
   return (
     <Stack>
       <Box sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
         <Box pb={4}>
-          <Header title="Home" subtitle="Videos tailord to your likes" />
+          <Header title={title} subtitle={subtitle} />
         </Box>
 
         {data && <VideoStack videos={data.items} direction="row" />}
@@ -31,4 +31,4 @@ const HomePage = (props: Props) => {
   );
 };
 
-export default HomePage;
+export default FeedPage;
