@@ -1,4 +1,4 @@
-import { CommentThread } from "../model/api/comment-types";
+import { CommentThread } from "../../model/api/comment-types";
 import {
   Avatar,
   Card,
@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { ThumbUp } from "@mui/icons-material";
-import FlexBetween from "./layout/FlexBetween";
+import FlexBetween from "../FlexBetween";
 
 type Props = { commentThread: CommentThread };
 

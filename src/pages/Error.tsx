@@ -1,9 +1,7 @@
 import { Box, useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
 
-type Props = {};
-
-const ErrorPage = (props: Props) => {
+const ErrorPage = () => {
   const theme = useTheme();
 
   return (

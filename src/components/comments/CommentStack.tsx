@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentThread } from "../model/api/comment-types";
+import { CommentThread } from "../../model/api/comment-types";
 import { Stack, Typography, useTheme } from "@mui/material";
 import CommentCard from "./CommentCard";
 

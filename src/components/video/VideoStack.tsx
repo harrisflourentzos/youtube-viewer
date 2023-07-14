@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material";
 import VideoCard from "./VideoCard";
-import { SearchResult } from "../model/api/search-types";
+import { SearchResult } from "../../model/api/search-types";
 
 type Props = { videos: SearchResult[]; direction: "row" | "column" };
 

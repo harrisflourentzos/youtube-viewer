@@ -18,14 +18,14 @@ type Props = {
   drawerWidth: any;
   isSidebarOpen: boolean;
   setIsSidebarOpen: (value: boolean) => void;
-  isNonMobile: boolean;
+  isMobile: boolean;
 };
 
 const Sidebar = ({
   drawerWidth,
   isSidebarOpen,
   setIsSidebarOpen,
-  isNonMobile,
+  isMobile,
 }: Props) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
@@ -68,7 +68,6 @@ const Sidebar = ({
       {isSidebarOpen && (
         <Drawer
           open={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
           variant="persistent"
           anchor="left"
           sx={{
@@ -77,7 +76,7 @@ const Sidebar = ({
               color: theme.palette.secondary[200],
               backgroundColor: theme.palette.background.alt,
               boxSixing: "border-box",
-              borderWidth: isNonMobile ? 0 : "2px",
+              borderWidth: isMobile ? "2px" : 0,
               width: drawerWidth,
             },
           }}
@@ -91,7 +90,7 @@ const Sidebar = ({
                     Viewer
                   </Typography>
                 </Box>
-                {!isNonMobile && (
+                {isMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                     <ChevronLeft />
                   </IconButton>

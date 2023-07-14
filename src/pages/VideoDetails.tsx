@@ -1,20 +1,18 @@
 import { CheckCircle } from "@mui/icons-material";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import VideoStack from "../components/VideoStack";
+import VideoStack from "../components/video/VideoStack";
 import ReactPlayer from "react-player";
 import {
   GetVideoDetails,
   GetRelatedVideosById,
   GetVideoCommentThreadsById,
-} from "../api/youtube-api";
-import useHttp from "../hooks/use-http";
+} from "../api/youtubeApi";
+import useHttp from "../hooks/useHttp";
 import { useEffect } from "react";
-import CommentStack from "../components/CommentStack";
+import CommentStack from "../components/comments/CommentStack";
 
-type Props = {};
-
-const VideoDetailsPage = (props: Props) => {
+const VideoDetailsPage = () => {
   const { id } = useParams();
   const { data: video, sendRequest: getVideo } = useHttp(GetVideoDetails);
   const { data: relatedVideos, sendRequest: getRelatedVideos } =
