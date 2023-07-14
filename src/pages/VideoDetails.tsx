@@ -11,6 +11,7 @@ import {
 import useHttp from "../hooks/useHttp";
 import { useEffect } from "react";
 import CommentStack from "../components/comments/CommentStack";
+import Loading from "../components/Loading";
 
 const VideoDetailsPage = () => {
   const { id } = useParams();
@@ -34,11 +35,7 @@ const VideoDetailsPage = () => {
 
   return (
     <Box minHeight="95vh">
-      {!(video && relatedVideos && commentThreads) && (
-        <Typography variant="h4" color={theme.palette.neutral[100]}>
-          Loading...
-        </Typography>
-      )}
+      {!(video && relatedVideos && commentThreads) && <Loading />}
       {video && relatedVideos && commentThreads && (
         <Stack direction={{ xs: "column", md: "row" }}>
           <Box flex={1}>

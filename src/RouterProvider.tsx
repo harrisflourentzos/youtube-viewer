@@ -6,8 +6,9 @@ import {
 } from "react-router-dom";
 import Layout from "./pages/layout/Layout";
 import ErrorPage from "./pages/Error";
-import VideoDetailsPage from "./pages/VideoDetails";
 import FeedPage from "./pages/Feed";
+import VideoDetailsPage from "./pages/VideoDetails";
+import SearchResultsPage from "./pages/SearchResults";
 
 const RouterProvider = () => {
   const router = createBrowserRouter([
@@ -18,29 +19,35 @@ const RouterProvider = () => {
       children: [
         {
           path: "",
-          element: <Navigate to="feed/home" replace />,
+          element: <Navigate to="home" replace />,
         },
         {
-          path: "feed/home",
-          element: <FeedPage header="Home" />,
+          path: "home",
+          element: (
+            <FeedPage
+              title="Home"
+              subtitle="Welcome to your personalized feed"
+              feed="news technology"
+            />
+          ),
         },
         { path: "video/:id", element: <VideoDetailsPage /> },
-        { path: "feed/:feedTerm", element: <FeedPage /> },
+        { path: "search/:searchTerm", element: <SearchResultsPage /> },
         {
-          path: "feed/travel",
-          element: <FeedPage header="Travel" />,
+          path: "travel",
+          element: <FeedPage title="Travel" feed="travel" />,
         },
         {
-          path: "feed/music",
-          element: <FeedPage header="Music" />,
+          path: "music",
+          element: <FeedPage title="Music" feed="music" />,
         },
         {
-          path: "feed/anime",
-          element: <FeedPage header="Anime" />,
+          path: "anime",
+          element: <FeedPage title="Anime" feed="anime" />,
         },
         {
-          path: "feed/movies",
-          element: <FeedPage header="Music" />,
+          path: "movies",
+          element: <FeedPage title="Movies" feed="movies" />,
         },
       ],
     },

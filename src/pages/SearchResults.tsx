@@ -1,34 +1,30 @@
 import { useEffect } from "react";
-import useHttp from "../hooks/use-http";
 import { Box, Stack, Typography } from "@mui/material";
-import VideoStack from "../components/VideoStack";
-import { Search } from "../api/youtube-api";
 import { useParams } from "react-router-dom";
 import { useTheme } from "@mui/material";
+import useHttp from "../hooks/useHttp";
+import { Search } from "../api/youtubeApi";
+import VideoStack from "../components/video/VideoStack";
+import Loading from "../components/Loading";
 
 type Props = {};
 
 const SearchResultsPage = (props: Props) => {
   const { data, sendRequest } = useHttp(Search);
   const { searchTerm } = useParams();
-  const theme = useTheme();
 
   useEffect(() => {
-    async function GetVideos(searchTerm: string) {
+    async function GetVideos() {
       await sendRequest(searchTerm);
     }
 
-    searchTerm && GetVideos(searchTerm);
+    searchTerm && GetVideos();
   }, [sendRequest, searchTerm]);
 
   return (
     <Stack>
       <Box sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-        {!data && (
-          <Typography variant="h4" color={theme.palette.neutral[100]}>
-            Loading...
-          </Typography>
-        )}
+        {!data && <Loading />}
         {data && <VideoStack videos={data.items} direction="row" />}
       </Box>
     </Stack>

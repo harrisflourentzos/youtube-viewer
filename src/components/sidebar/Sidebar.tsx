@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import FlexBetween from "../FlexBetween";
 import { ChevronLeft, YouTube } from "@mui/icons-material";
-import { sidebarItems } from "./SidebarItems";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
+import { sidebarItems } from "./SidebarItems";
 
 type Props = {
   drawerWidth: any;

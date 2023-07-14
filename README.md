@@ -1,4 +1,4 @@
-# Youtube Clone
+# Youtube Viewer
 
 ## Overview
 
@@ -22,23 +22,33 @@ This project is a solution to a coding exercise during an interview stage. It wi
 
    `npm start`
 
+## Solution
+
+- Solution was created using `create-react-app`. I think it was adequate for the purposes of the exercise but I would upgrade to NextJS if this becomes a larger project.
+- I have somewhat deviaded from the structure implied by the starting project. The reason for that was to allow me to implement routing, showcase more React features and provide a more realistic scenario for a production ready app. The <b>VideoDetailsPage</b> is essentially where the new feature requirement of loading comments was implemented.
+- I have chosen to remove the "load data as you type" functionality. In that I have removed lodash used to throttle user input.
+- The youtubeApi was built from scratch for the purposes of the excersise. Normally you would use an excisting, well supported npm package (Ideally youtube's official one but it's still in alpha).
+- <b>Subscriptions</b>, <b>History</b> and <b>Library</b> are left as invalid paths to showcase the Error page. They would not be otherwise included in a production release.
+
 ## Improvements and Limitations
 
-For a full overview please see the <b>Issues</b> section of the repo on GitHub.
+For all project roadmap see the <b>Issues</b> section of the repo on GitHub.
 
-### Improvements(Code base)
+### Code base
 
 - Add tests
-- Add user authentication
+- Optimize useEffect and data loading
 
 ### Enhancements
 
+- Add user authentication
 - Add Pagination
-- Add AI functionality
+- Also load comment replies
+- Add AI functionality (see more details in github issues)
 - Optimise more for mobile
 - Upgrade project to NextJS
 
 ### Issues
 
-- Repeatedly hitting sidebar items breaks sidebar selection bugSomething isn't working
-- Error page should be rendered within the Layout page bugSomething isn't working
+- Repeatedly hitting sidebar items breaks sidebar selection bug
+- Error page should be rendered within the Layout page bug

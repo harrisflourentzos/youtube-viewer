@@ -1,8 +1,8 @@
 import { Box, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
-import Topbar from "../../components/Topbar";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
+import Topbar from "../../components/Topbar";
 
 const Layout = () => {
   const isMobile = !useMediaQuery("(min-width: 600px)");

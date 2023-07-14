@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
-import useHttp from "../hooks/use-http";
-import { Search } from "../api/youtube-api";
 import { Box, Stack } from "@mui/material";
-import VideoStack from "../components/VideoStack";
 import Header from "../components/Header";
+import useHttp from "../hooks/useHttp";
+import { Search } from "../api/youtubeApi";
+import VideoStack from "../components/video/VideoStack";
+import Loading from "../components/Loading";
 
-type Props = { searchTerm: string; title: string; subtitle?: string };
+type Props = { feed: string; title: string; subtitle?: string };
 
-const FeedPage = ({ searchTerm, title, subtitle }: Props) => {
+const FeedPage = ({ feed, title, subtitle }: Props) => {
   const { data, sendRequest } = useHttp(Search);
 
   useEffect(() => {
-    async function GetVideos(searchTerm: string) {
-      await sendRequest(searchTerm);
+    async function GetVideos() {
+      await sendRequest(feed);
     }
 
-    GetVideos(searchTerm);
-  }, [sendRequest, searchTerm]);
+    GetVideos();
+  }, [sendRequest, feed]);
 
   return (
     <Stack>
@@ -24,7 +25,7 @@ const FeedPage = ({ searchTerm, title, subtitle }: Props) => {
         <Box pb={4}>
           <Header title={title} subtitle={subtitle} />
         </Box>
-
+        {!data && <Loading />}
         {data && <VideoStack videos={data.items} direction="row" />}
       </Box>
     </Stack>

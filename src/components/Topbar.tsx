@@ -17,8 +17,8 @@ import {
 import {
   useAppDispatch as useDispatch,
   useAppSelector as useSelector,
-} from "../../hooks/redux/redux-hooks";
-import { updateTheme } from "../../store/redux/themeSlice";
+} from "../hooks/redux/reduxHooks";
+import { updateTheme } from "../store/redux/themeSlice";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState, KeyboardEvent } from "react";
 
