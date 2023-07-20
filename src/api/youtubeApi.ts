@@ -5,7 +5,7 @@ import { SearchResultResponse } from "../model/api/search-types";
 
 const BASE_URL = "https://www.googleapis.com/youtube/v3";
 
-async function FetchData(url: string, params: any) {
+async function fetchData(url: string, params: any) {
   const fullUrl = `${BASE_URL}/${url}`;
 
   const response = await axios.get(fullUrl, { params: params });
@@ -13,7 +13,7 @@ async function FetchData(url: string, params: any) {
   return response.data;
 }
 
-export async function Search(searchTerm: string) {
+export async function search(searchTerm: string) {
   const params = {
     part: "snippet",
     key: process.env.REACT_APP_YOUTUBE_API_V3_KEY,
@@ -21,12 +21,12 @@ export async function Search(searchTerm: string) {
     type: "video",
   };
 
-  const data = (await FetchData("search", params)) as SearchResultResponse;
+  const data = (await fetchData("search", params)) as SearchResultResponse;
 
   return data;
 }
 
-export async function GetRelatedVideosById(videoId: string) {
+export async function getRelatedVideosById(videoId: string) {
   const params = {
     part: "snippet",
     relatedToVideoId: videoId,
@@ -34,31 +34,31 @@ export async function GetRelatedVideosById(videoId: string) {
     key: process.env.REACT_APP_YOUTUBE_API_V3_KEY,
   };
 
-  const data = (await FetchData("search", params)) as SearchResultResponse;
+  const data = (await fetchData("search", params)) as SearchResultResponse;
 
   return data.items;
 }
 
-export async function GetVideoDetails(videoId: string) {
+export async function getVideoDetails(videoId: string) {
   const params = {
     part: "snippet,statistics",
     id: videoId,
     key: process.env.REACT_APP_YOUTUBE_API_V3_KEY,
   };
 
-  const data = (await FetchData("videos", params)) as VideosResponse;
+  const data = (await fetchData("videos", params)) as VideosResponse;
 
   return data.items[0];
 }
 
-export async function GetVideoCommentThreadsById(videoId: string) {
+export async function getVideoCommentThreadsById(videoId: string) {
   const params = {
     part: "snippet,replies",
     videoId: videoId,
     key: process.env.REACT_APP_YOUTUBE_API_V3_KEY,
   };
 
-  const data = (await FetchData(
+  const data = (await fetchData(
     "commentThreads",
     params
   )) as CommentThreadsResponse;

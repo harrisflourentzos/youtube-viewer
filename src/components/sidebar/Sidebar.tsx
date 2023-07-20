@@ -33,32 +33,32 @@ const Sidebar = ({
   const theme = useTheme();
 
   useEffect(() => {
-    setActive(pathname.substring(1));
+    setActive(pathname);
   }, [pathname]);
 
-  function onSidebarItemClickHandler(path: string) {
-    navigate(path);
+  function onSidebarItemClickHandler(path: string, state: any) {
+    navigate(path, { state: state });
     setActive(path);
   }
 
-  var sidebarItems_main = sidebarItems.main.map((item) => (
+  var sidebarItemsMain = sidebarItems.main.map((item) => (
     <SidebarItem
       key={item.text}
       title={item.text}
       icon={item.icon}
       path={item.path}
-      isActive={active === item.text.toLowerCase()}
+      isActive={active === item.path}
       onClick={onSidebarItemClickHandler}
     />
   ));
 
-  var sidebarItems_explore = sidebarItems.explore.map((item) => (
+  var sidebarItemsExplore = sidebarItems.explore.map((item) => (
     <SidebarItem
       key={item.text}
       title={item.text}
       icon={item.icon}
       path={item.path}
-      isActive={active === item.text.toLowerCase()}
+      isActive={active === item.path}
       onClick={onSidebarItemClickHandler}
     />
   ));
@@ -97,7 +97,7 @@ const Sidebar = ({
                 )}
               </FlexBetween>
             </Box>
-            <List>{sidebarItems_main}</List>
+            <List>{sidebarItemsMain}</List>
             <Divider sx={{ my: 1 }} />
             <Typography
               ml={5}
@@ -107,7 +107,7 @@ const Sidebar = ({
             >
               Explore
             </Typography>
-            <List>{sidebarItems_explore}</List>
+            <List>{sidebarItemsExplore}</List>
           </Box>
         </Drawer>
       )}

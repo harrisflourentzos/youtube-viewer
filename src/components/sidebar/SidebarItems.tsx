@@ -16,7 +16,7 @@ export const sidebarItems: { [key: string]: SidebarItem[] } = {
     {
       text: "Home",
       icon: <Home />,
-      path: "/home",
+      path: "/search/home",
     },
     {
       text: "Subscriptions",
@@ -38,22 +38,22 @@ export const sidebarItems: { [key: string]: SidebarItem[] } = {
     {
       text: "Travel",
       icon: <FlightTakeoff />,
-      path: "/travel",
+      path: "/search/travel",
     },
     {
       text: "Music",
       icon: <Headphones />,
-      path: "/music",
+      path: "/search/music",
     },
     {
       text: "Anime",
       icon: <Whatshot />,
-      path: "/anime",
+      path: "/search/anime",
     },
     {
       text: "Movies",
       icon: <LiveTv />,
-      path: "/movies",
+      path: "/search/movies",
     },
   ],
 };

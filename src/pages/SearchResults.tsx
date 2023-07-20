@@ -1,34 +1,48 @@
-import { useEffect } from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { useTheme } from "@mui/material";
-import useHttp from "../hooks/useHttp";
-import { Search } from "../api/youtubeApi";
+import { Box, Stack } from "@mui/material";
+import {
+  Await,
+  LoaderFunctionArgs,
+  defer,
+  useLoaderData,
+  useLocation,
+} from "react-router-dom";
+import { search } from "../api/youtubeApi";
 import VideoStack from "../components/video/VideoStack";
+import { SearchResultResponse } from "../model/api/search-types";
+import Header from "../components/Header";
+import { Suspense } from "react";
 import Loading from "../components/Loading";
 
 type Props = {};
 
 const SearchResultsPage = (props: Props) => {
-  const { data, sendRequest } = useHttp(Search);
-  const { searchTerm } = useParams();
+  const { response } = useLoaderData() as { response: SearchResultResponse };
+  const { state } = useLocation();
 
-  useEffect(() => {
-    async function GetVideos() {
-      await sendRequest(searchTerm);
-    }
-
-    searchTerm && GetVideos();
-  }, [sendRequest, searchTerm]);
+  <Stack>{state && state.title && <Header title={state.title} />}</Stack>;
 
   return (
     <Stack>
-      <Box sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-        {!data && <Loading />}
-        {data && <VideoStack videos={data.items} direction="row" />}
-      </Box>
+      {state && state.title && <Header title={state.title} />}
+      <Suspense fallback={<Loading />}>
+        <Await resolve={response}>
+          {(response: SearchResultResponse) => (
+            <Box sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+              {<VideoStack videos={response.items} direction="row" />}
+            </Box>
+          )}
+        </Await>
+      </Suspense>
     </Stack>
   );
 };
+
+export function loader({ params }: LoaderFunctionArgs) {
+  const searchTerm = params["searchTerm"]!;
+
+  return defer({
+    response: search(searchTerm),
+  });
+}
 
 export default SearchResultsPage;

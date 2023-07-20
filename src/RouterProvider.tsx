@@ -6,9 +6,12 @@ import {
 } from "react-router-dom";
 import Layout from "./pages/layout/Layout";
 import ErrorPage from "./pages/Error";
-import FeedPage from "./pages/Feed";
-import VideoDetailsPage from "./pages/VideoDetails";
-import SearchResultsPage from "./pages/SearchResults";
+import VideoDetailsPage, {
+  loader as videoDetailsLoader,
+} from "./pages/VideoDetails";
+import SearchResultsPage, {
+  loader as searchResultLoader,
+} from "./pages/SearchResults";
 
 const RouterProvider = () => {
   const router = createBrowserRouter([
@@ -19,35 +22,19 @@ const RouterProvider = () => {
       children: [
         {
           path: "",
-          element: <Navigate to="home" replace />,
-        },
-        {
-          path: "home",
           element: (
-            <FeedPage
-              title="Home"
-              subtitle="Welcome to your personalized feed"
-              feed="news technology"
-            />
+            <Navigate to="search/home" state={{ title: "home" }} replace />
           ),
         },
-        { path: "video/:id", element: <VideoDetailsPage /> },
-        { path: "search/:searchTerm", element: <SearchResultsPage /> },
         {
-          path: "travel",
-          element: <FeedPage title="Travel" feed="travel" />,
+          path: "video/:id",
+          element: <VideoDetailsPage />,
+          loader: videoDetailsLoader,
         },
         {
-          path: "music",
-          element: <FeedPage title="Music" feed="music" />,
-        },
-        {
-          path: "anime",
-          element: <FeedPage title="Anime" feed="anime" />,
-        },
-        {
-          path: "movies",
-          element: <FeedPage title="Movies" feed="movies" />,
+          path: "search/:searchTerm",
+          element: <SearchResultsPage />,
+          loader: searchResultLoader,
         },
       ],
     },

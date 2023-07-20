@@ -12,7 +12,7 @@ type Props = {
   icon: JSX.Element;
   path: string;
   isActive: boolean;
-  onClick: (path: string) => void;
+  onClick: (path: string, state: any) => void;
 };
 
 const SidebarItem = ({ title, icon, path, isActive, onClick }: Props) => {
@@ -21,7 +21,7 @@ const SidebarItem = ({ title, icon, path, isActive, onClick }: Props) => {
   return (
     <ListItem key={title} disablePadding>
       <ListItemButton
-        onClick={() => onClick(path)}
+        onClick={() => onClick(path, { title: title })}
         sx={{
           backgroundColor: isActive
             ? theme.palette.secondary[300]
