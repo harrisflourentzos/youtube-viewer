@@ -36,6 +36,11 @@ export async function getRelatedVideosById(videoId: string) {
 
   const data = await fetchData<SearchResultResponse>("search", params);
 
+  if (data.items.length === 0)
+    throw new Error(
+      `Could not find related videos of video with id ${videoId}.`
+    );
+
   return data.items;
 }
 
@@ -47,6 +52,9 @@ export async function getVideoDetails(videoId: string) {
   };
 
   const data = await fetchData<VideosResponse>("videos", params);
+
+  if (data.items.length === 0)
+    throw new Error(`No video with id ${videoId} exists.`);
 
   return data.items[0];
 }
@@ -62,6 +70,9 @@ export async function getVideoCommentThreadsById(videoId: string) {
     "commentThreads",
     params
   );
+
+  if (data.items.length === 0)
+    throw new Error(`Could not find comments of video with id ${videoId}.`);
 
   return data.items;
 }

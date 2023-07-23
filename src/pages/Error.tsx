@@ -1,24 +1,28 @@
 import { Box, useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
-import { AxiosError } from "axios";
+import axios from "axios";
 import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
   const theme = useTheme();
-  const error = useRouteError() as AxiosError;
+  const error = useRouteError();
 
   const title = "Something went wrong!";
   let message =
     "The content you have requested does not exist. Please navigate back.";
 
-  if (error) {
-    if (error.request) {
-      message = `Could not connect to server due to: ${error.message}`;
-    }
-
+  if (axios.isAxiosError(error)) {
     if (error.response) {
       message = `Server responded with: ${error.response.status}`;
     }
+
+    if (error.request) {
+      message = `Could not connect to server due to: ${error.message}`;
+    }
+  }
+
+  if (error instanceof Error) {
+    message = error.message;
   }
 
   return (

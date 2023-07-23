@@ -19,8 +19,6 @@ const SearchResultsPage = (props: Props) => {
   const { response } = useLoaderData() as { response: SearchResultResponse };
   const { state } = useLocation();
 
-  <Stack>{state && state.title && <Header title={state.title} />}</Stack>;
-
   return (
     <Stack>
       {state && state.title && <Header title={state.title} />}
